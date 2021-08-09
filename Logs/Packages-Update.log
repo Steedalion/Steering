@@ -63,3 +63,13 @@ Update Mode: mergeDefaultDependencies
 The following packages were added:
   com.unity.cinemachine@2.3.4
   com.unity.render-pipelines.universal@7.3.1
+
+=== Mon Aug  9 14:14:30 2021
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ide.visualstudio@2.0.8
+The following packages were updated:
+  com.unity.ide.rider from version 1.1.4 to 1.2.1
