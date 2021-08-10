@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
@@ -80,6 +77,7 @@ public class SteeringBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     protected float speed => agent.speed;
     private Vector3 destination = new Vector3();
+    public float repelRate = -0.5f;
 
     private void OnDrawGizmosSelected()
     {
@@ -119,12 +117,26 @@ public class SteeringBehaviour : MonoBehaviour
         }
         else
         {
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(transform.position, out hit,100, -1))
+            NavMeshHit nearest;
+            if (NavMesh.SamplePosition(transform.position, out nearest,100, -1))
             {
-                setDestination(hit.position+MyExtensions.RandomXY(0.2f));
+                Vector3 nearestPosition = nearest.position;
+                Debug.DrawLine(transform.position+Vector3.up, nearest.position, Color.cyan);
+
+                NavMeshHit blockedHit;
+                if (NavMesh.Raycast(transform.position, transform.forward,out blockedHit, NavMesh.AllAreas))
+                {
+                    Debug.DrawLine(transform.position,blockedHit.position, Color.green);
+                }
+                setDestination(Repel(nearest.position));
             }
         }
+    }
+
+    private Vector3 Repel(Vector3 nearestPosition)
+    {
+        Vector3 toNearestPoint = nearestPosition - transform.position;
+        return nearestPosition += repelRate * toNearestPoint;
     }
 }
 

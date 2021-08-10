@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Fleeer : TargetedSteer
+﻿public class Fleeer : TargetedSteer
 {
     
     void Update()
